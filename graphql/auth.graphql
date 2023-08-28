@@ -1,0 +1,19 @@
+input Login{
+    email: String!,
+    password: String!,
+    device: String!
+}
+
+type LoginResponse{
+    user: User!,
+    token: String!
+}
+
+type LogoutResponse{
+    user:User! @guard @auth
+}
+
+extend type Mutation{
+    login(data:Login): LoginResponse,
+    logout: LogoutResponse!
+}
