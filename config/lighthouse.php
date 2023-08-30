@@ -38,6 +38,7 @@ return [
             // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
 
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Fruitcake\Cors\HandleCors::class,
         ],
 
         /*

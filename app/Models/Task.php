@@ -30,16 +30,6 @@ class Task extends Model
     }
 
     /**
-     * Get all of the tasks for the Task
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
      * Get the category that owns the Task
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

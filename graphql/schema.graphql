@@ -1,5 +1,6 @@
 #import auth.graphql
 #import task.graphql
+#import categories.graphql
 
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
@@ -40,4 +41,15 @@ type User {
 
     "When the account was last updated."
     updated_at: DateTime!
+}
+
+input RegisterInput{
+  name: String! @rules(apply: ["required", "string"])
+  email: String! @rules(apply: ["required", "email", "unique:users,email"])
+  password: String! @rules(apply: ["required", "confirmed", "min:8"])
+  password_confirmation: String!
+}
+
+type Mutation{
+  register(input: RegisterInput @spread): User!
 }

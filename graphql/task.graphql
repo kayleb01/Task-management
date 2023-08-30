@@ -1,0 +1,27 @@
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Task {
+    id: ID!
+    title: String!
+    user: User!
+    category: Category!
+    due_date: Date!
+    status: String!
+    description: String!
+}
+
+input TaskInput {
+    title: String! @rules(apply: ["required", "string"])
+    category_id: ID! @rules(apply: ["required", "exists:categories,id"])
+    due_date: Date! @rules(apply: ["required", "date"])
+    description: String! @rules(apply: ["required", "string"])
+}
+
+extend type Mutation {
+    createTask(input:TaskInput @spread): Task
+}
+
+extend type Query{
+    tasks:[Task!]! @all
+    task(id:ID @eq): Task! @find
+}
