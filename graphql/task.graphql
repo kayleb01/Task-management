@@ -1,13 +1,15 @@
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Task {
     id: ID!
     title: String!
-    user: User!
+    user: User
     category: Category!
     due_date: Date!
     status: String!
     description: String!
+    created_at: DateTime!
 }
 
 input TaskInput {
@@ -17,8 +19,14 @@ input TaskInput {
     description: String! @rules(apply: ["required", "string"])
 }
 
+input UpdateTaskStatusInput{
+    id: ID! @rules(apply: ["required", "int"])
+    status: String! @rules(apply: ["required", "string"])
+}
+
 extend type Mutation {
     createTask(input:TaskInput @spread): Task
+    updateTaskStatus(input:UpdateTaskStatusInput @spread): Task @update
 }
 
 extend type Query{
